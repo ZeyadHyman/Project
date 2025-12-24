@@ -237,7 +237,9 @@ function displayProducts() {
     productHTML += "<button class='view-details-btn'>View Details</button>";
     productHTML += "</a>";
     productHTML +=
-      "<button onclick='addProductToCart(" + i + ")'>Add to Cart</button>";
+      "<button class='add-to-cart-btn' onclick='addProductToCart(" +
+      i +
+      ")'>Add to Cart</button>";
 
     productCard.innerHTML = productHTML;
     productsGrid.appendChild(productCard);

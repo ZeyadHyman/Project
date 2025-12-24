@@ -50,7 +50,10 @@ function showProductDetails(productId) {
       detailsHTML += "<li>" + product.specs[j] + "</li>";
     }
     detailsHTML += "</ul></div>";
-    detailsHTML += "<button onclick='addToCartFromDetails(" + product.id + ")'>Add to Cart</button>";
+    detailsHTML +=
+      "<button class='add-to-cart-btn' onclick='addToCartFromDetails(" +
+      product.id +
+      ")'>Add to Cart</button>";
     detailsHTML += "</div></div>";
     detailsContainer.innerHTML = detailsHTML;
   }
