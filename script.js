@@ -11,7 +11,8 @@ const products = [
     id: 1,
     name: "Dell Laptop 15 inch",
     price: 899.99,
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
     description:
       "Perfect for work and everyday use. Fast processor, plenty of storage, and a great screen.",
     specs: [
@@ -27,7 +28,8 @@ const products = [
     id: 2,
     name: "Samsung Galaxy Phone",
     price: 649.99,
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop",
     description:
       "Latest model with amazing camera and long battery life. Great for photos and daily use.",
     specs: [
@@ -43,7 +45,8 @@ const products = [
     id: 3,
     name: "Sony Wireless Headphones",
     price: 129.99,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
     description:
       "Comfortable over-ear headphones with noise cancellation. Perfect for music and calls.",
     specs: [
@@ -59,7 +62,8 @@ const products = [
     id: 4,
     name: "Apple Watch Series",
     price: 329.99,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
     description:
       "Track your fitness, get notifications, and stay connected. Works with iPhone.",
     specs: [
@@ -75,7 +79,8 @@ const products = [
     id: 5,
     name: "iPad Tablet 10 inch",
     price: 449.99,
-    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
     description:
       "Great for reading, drawing, and watching videos. Lightweight and easy to carry.",
     specs: [
@@ -91,7 +96,8 @@ const products = [
     id: 6,
     name: "Logitech Gaming Mouse",
     price: 69.99,
-    image: "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=300&fit=crop",
     description:
       "Smooth tracking and comfortable design. Perfect for gaming and work.",
     specs: [
@@ -107,7 +113,8 @@ const products = [
     id: 7,
     name: "USB-C Charging Cable",
     price: 19.99,
-    image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=300&fit=crop",
     description:
       "Fast charging cable that works with most phones and tablets. Durable and reliable.",
     specs: [
@@ -123,7 +130,8 @@ const products = [
     id: 8,
     name: "Portable Speaker",
     price: 89.99,
-    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=300&fit=crop",
     description:
       "Take your music anywhere. Waterproof design with great sound quality.",
     specs: [
@@ -290,7 +298,7 @@ function validateForm() {
     error.textContent = "";
   });
 
-  // Validate name (String data type)
+  // Check if name is filled in
   const name = nameInput.value.trim();
   if (name === "") {
     showError("name-error", "Please enter your name");
@@ -300,10 +308,9 @@ function validateForm() {
     isValid = false;
   }
 
-  // Validate email (String data type with built-in function)
+  // Check if email is filled in and has correct format
   const email = emailInput.value.trim();
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // Built-in function: String.match() with RegExp
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // This pattern checks for valid email format
   if (email === "") {
     showError("email-error", "Please enter your email");
     isValid = false;
@@ -312,7 +319,7 @@ function validateForm() {
     isValid = false;
   }
 
-  // Validate message (String data type)
+  // Check if message is filled in
   const message = messageInput.value.trim();
   if (message === "") {
     showError("message-error", "Please write a message");
@@ -325,10 +332,10 @@ function validateForm() {
     isValid = false;
   }
 
-  return isValid;
+  return isValid; // Return true if everything is valid, false if not
 }
 
-// Helper function to show error messages
+// Helper function to display error messages
 function showError(errorId, message) {
   const errorElement = document.getElementById(errorId);
   if (errorElement) {
@@ -336,26 +343,27 @@ function showError(errorId, message) {
   }
 }
 
-// Handle form submission
+// This function runs when the form is submitted
 function handleFormSubmit(event) {
-  event.preventDefault(); // Prevent default form submission
+  event.preventDefault(); // Stop the form from submitting normally
 
   try {
+    // First validate the form
     if (validateForm()) {
-      // Get form data
+      // If form is valid, get the data
       const formData = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         message: document.getElementById("message").value,
       };
 
-      // Simulate form submission
+      // Show success message
       const successMessage = document.getElementById("form-success");
       successMessage.textContent =
         "Thanks! We got your message and will get back to you soon.";
       successMessage.style.display = "block";
 
-      // Reset form
+      // Clear the form
       document.getElementById("contact-form").reset();
 
       // Hide success message after 5 seconds
@@ -364,38 +372,40 @@ function handleFormSubmit(event) {
       }, 5000);
     }
   } catch (error) {
-    // Error handling
+    // If something goes wrong, show an error
     console.error("Form submission error:", error);
     alert("Oops, something went wrong. Can you try again?");
   }
 }
 
 // ============================================
-// DYNAMIC PRODUCT DISPLAY
+// DISPLAY PRODUCTS
 // ============================================
-// JavaScript Function: Display products dynamically
+// This function shows all products on the page
 function displayProducts() {
+  // Get the container where products will be displayed
   const productsGrid = document.getElementById("products-grid");
 
+  // If the container doesn't exist, stop here
   if (!productsGrid) {
     console.error("Products grid element not found");
     return;
   }
 
-  // Clear existing content
+  // Clear any existing content
   productsGrid.innerHTML = "";
 
-  // Loop through products array
-  // Built-in function: Array.forEach()
+  // Loop through each product and create a card for it
   products.forEach((product) => {
-    // Create product card element
+    // Create a new div element for the product card
     const productCard = document.createElement("div");
     productCard.className = "product-card";
-    productCard.style.cursor = "pointer";
 
-    // Set inner HTML with product data
+    // Create the HTML for this product card
     productCard.innerHTML = `
-             <div class="product-image">${product.image}</div>
+             <img src="${product.image}" alt="${
+      product.name
+    }" class="product-image" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
              <div class="product-name">${product.name}</div>
              <div class="product-price">$${product.price.toFixed(2)}</div>
              <a href="product-details.html?id=${
@@ -412,51 +422,51 @@ function displayProducts() {
              </button>
          `;
 
-    // Append to grid
+    // Add the card to the page
     productsGrid.appendChild(productCard);
   });
 }
 
 // ============================================
-// MODAL FUNCTIONALITY
+// CART MODAL (POPUP WINDOW)
 // ============================================
-// JavaScript Functions: Handle modal open/close
+// Function to open the cart popup
 function openCartModal() {
   const modal = document.getElementById("cart-modal");
   if (modal) {
-    modal.style.display = "block";
-    cartManager.updateCartDisplay();
+    modal.style.display = "block"; // Show the modal
+    cartManager.updateCartDisplay(); // Update what's shown in the cart
   }
 }
 
+// Function to close the cart popup
 function closeCartModal() {
   const modal = document.getElementById("cart-modal");
   if (modal) {
-    modal.style.display = "none";
+    modal.style.display = "none"; // Hide the modal
   }
 }
 
 // ============================================
 // SMOOTH SCROLLING
 // ============================================
-// JavaScript Function: Smooth scroll to section
+// This function makes the page scroll smoothly to a section
 function smoothScroll(targetId) {
   const targetElement = document.querySelector(targetId);
   if (targetElement) {
     targetElement.scrollIntoView({
-      behavior: "smooth",
+      behavior: "smooth", // Smooth scrolling instead of jumping
       block: "start",
     });
   }
 }
 
 // ============================================
-// EVENT LISTENERS (DOM Manipulation)
+// SETUP WHEN PAGE LOADS
 // ============================================
-// Wait for DOM to load before executing JavaScript
-// Built-in function: addEventListener()
+// Wait for the page to finish loading before running our code
 document.addEventListener("DOMContentLoaded", function () {
-  // Display products when page loads
+  // Show all products on the page
   displayProducts();
 
   // Cart icon click event
@@ -536,7 +546,10 @@ document.addEventListener("DOMContentLoaded", function () {
   loadCartFromStorage();
 });
 
-// Function to save cart to localStorage
+// ============================================
+// SAVE AND LOAD CART
+// ============================================
+// Save the cart to browser storage so it doesn't disappear when you refresh
 function saveCartToStorage() {
   try {
     localStorage.setItem("techStoreCart", JSON.stringify(cart));
@@ -545,7 +558,7 @@ function saveCartToStorage() {
   }
 }
 
-// Function to load cart from localStorage
+// Load the cart from browser storage when the page loads
 function loadCartFromStorage() {
   try {
     const savedCart = localStorage.getItem("techStoreCart");

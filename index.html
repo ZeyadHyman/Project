@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TechStore - E-Trade Platform</title>
-    <!-- External CSS file -->
+    <!-- Link to our CSS file that styles everything -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Header with navigation -->
+    <!-- Top navigation bar -->
     <header id="main-header" class="header">
       <div class="container">
         <h1 class="logo">TechStore</h1>
+        <!-- Navigation menu -->
         <nav class="nav-menu">
           <ul class="nav-list">
             <li><a href="#home" class="nav-link active">Home</a></li>
@@ -20,6 +21,7 @@
             <li><a href="#contact" class="nav-link">Contact</a></li>
           </ul>
         </nav>
+        <!-- Shopping cart icon with item count -->
         <div class="cart-icon" id="cart-icon">
           <span>Cart</span>
           <span class="cart-count" id="cart-count">0</span>
@@ -27,9 +29,9 @@
       </div>
     </header>
 
-    <!-- Main content -->
+    <!-- Main page content -->
     <main id="main-content">
-      <!-- Hero Section -->
+      <!-- Welcome section at the top -->
       <section id="home" class="hero-section">
         <div class="container">
           <h2 class="hero-title">Welcome to TechStore</h2>
@@ -40,17 +42,17 @@
         </div>
       </section>
 
-      <!-- Products Section -->
+      <!-- Products section - JavaScript will add products here -->
       <section id="products" class="products-section">
         <div class="container">
           <h2 class="section-title">Our Products</h2>
           <div class="products-grid" id="products-grid">
-            <!-- Products will be dynamically loaded by JavaScript -->
+            <!-- Products will be loaded here by JavaScript -->
           </div>
         </div>
       </section>
 
-      <!-- Shopping Cart Modal -->
+      <!-- Shopping cart popup window -->
       <div class="modal" id="cart-modal">
         <div class="modal-content">
           <span class="close" id="close-modal">&times;</span>
@@ -63,7 +65,7 @@
         </div>
       </div>
 
-      <!-- About Section -->
+      <!-- About us section -->
       <section id="about" class="about-section">
         <div class="container">
           <h2 class="section-title">About TechStore</h2>
@@ -77,7 +79,7 @@
         </div>
       </section>
 
-      <!-- Contact Section with Form -->
+      <!-- Contact form section -->
       <section id="contact" class="contact-section">
         <div class="container">
           <h2 class="section-title">Contact Us</h2>
@@ -122,14 +124,14 @@
       </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer at the bottom -->
     <footer id="main-footer" class="footer">
       <div class="container">
         <p>&copy; 2025 TechStore. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- External JavaScript file -->
+    <!-- Link to our JavaScript file that makes everything work -->
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,43 +1,43 @@
 // Product Details Page JavaScript
-// This file handles displaying product details on a separate page
+// This file shows the product details when you click on a product
 
-// Wait for DOM to load
+// Wait for the page to load
 document.addEventListener("DOMContentLoaded", function () {
-  // Get product ID from URL parameters
+  // Get the product ID from the URL (like product-details.html?id=1)
   const urlParams = new URLSearchParams(window.location.search);
   const productId = parseInt(urlParams.get("id"));
 
-  // Load cart from localStorage if available
+  // Load the cart from storage
   loadCartFromStorage();
 
-  // Display product details
+  // Show the product details
   if (productId) {
     showProductDetails(productId);
   } else {
     showError("Product ID not found in URL");
   }
 
-  // Setup cart functionality
+  // Set up the cart buttons and functionality
   setupCartFunctionality();
 });
 
-// Function to show product details
+// Function to display the product information
 function showProductDetails(productId) {
   try {
-    // Built-in function: Array.find()
+    // Find the product with matching ID
     const product = products.find((p) => p.id === productId);
 
     if (!product) {
       throw new Error("Product not found");
     }
 
-    // Display product details
+    // Get the container and fill it with product info
     const detailsContainer = document.getElementById("product-details-container");
     if (detailsContainer) {
       detailsContainer.innerHTML = `
         <div class="product-details-layout">
           <div class="product-details-image">
-            <div class="details-image-large">${product.image}</div>
+            <img src="${product.image}" alt="${product.name}" class="details-image-large" onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
           </div>
           <div class="product-details-info">
             <h1 class="details-product-name">${product.name}</h1>
@@ -71,13 +71,14 @@ function showProductDetails(productId) {
   }
 }
 
-// Function to add product to cart from details page
+// Function to add product to cart from the details page
 function addToCartFromDetails(productId) {
   try {
+    // Find the product and add it to cart
     const product = products.find((p) => p.id === productId);
     if (product) {
       cartManager.addItem(product);
-      // Save cart to localStorage
+      // Save the cart so it doesn't disappear
       saveCartToStorage();
     }
   } catch (error) {
@@ -86,7 +87,7 @@ function addToCartFromDetails(productId) {
   }
 }
 
-// Function to show error message
+// Function to show an error message if something goes wrong
 function showError(message) {
   const detailsContainer = document.getElementById("product-details-container");
   if (detailsContainer) {
@@ -101,7 +102,7 @@ function showError(message) {
   }
 }
 
-// Function to setup cart functionality
+// Function to set up all the cart buttons and click handlers
 function setupCartFunctionality() {
   // Cart icon click event
   const cartIcon = document.getElementById("cart-icon");
@@ -148,7 +149,7 @@ function setupCartFunctionality() {
   cartManager.updateCartDisplay();
 }
 
-// Function to save cart to localStorage
+// Function to save the cart to browser storage
 function saveCartToStorage() {
   try {
     localStorage.setItem("techStoreCart", JSON.stringify(cart));
@@ -157,7 +158,7 @@ function saveCartToStorage() {
   }
 }
 
-// Function to load cart from localStorage
+// Function to load the cart from browser storage
 function loadCartFromStorage() {
   try {
     const savedCart = localStorage.getItem("techStoreCart");
@@ -170,7 +171,7 @@ function loadCartFromStorage() {
   }
 }
 
-// Modal functions
+// Functions to open and close the cart popup
 function openCartModal() {
   const modal = document.getElementById("cart-modal");
   if (modal) {
