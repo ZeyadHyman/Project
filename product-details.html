@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - TechStore</title>
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header with navigation -->
+    <header id="main-header" class="header">
+      <div class="container">
+        <h1 class="logo"><a href="index.html" style="color: white; text-decoration: none;">TechStore</a></h1>
+        <nav class="nav-menu">
+          <ul class="nav-list">
+            <li><a href="index.html#home" class="nav-link">Home</a></li>
+            <li><a href="index.html#products" class="nav-link">Products</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="cart-icon" id="cart-icon">
+          <span>Cart</span>
+          <span class="cart-count" id="cart-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="main-content">
+      <!-- Product Details Section -->
+      <section id="product-details" class="product-details-section">
+        <div class="container">
+          <button class="back-btn" id="back-to-products" onclick="window.location.href='index.html#products'">
+            ← Back to Products
+          </button>
+          <div class="product-details-container" id="product-details-container">
+            <!-- Product details will be loaded here by JavaScript -->
+            <div style="text-align: center; padding: 3rem;">
+              <p style="font-size: 1.3rem;">Loading product details...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shopping Cart Modal -->
+      <div class="modal" id="cart-modal">
+        <div class="modal-content">
+          <span class="close" id="close-modal">&times;</span>
+          <h2>Your Shopping Cart</h2>
+          <div id="cart-items"></div>
+          <div class="cart-total">
+            <p>Total: $<span id="cart-total">0.00</span></p>
+            <button class="btn-primary" id="checkout-btn">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer" class="footer">
+      <div class="container">
+        <p>&copy; 2025 TechStore. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- External JavaScript files -->
+    <script src="script.js"></script>
+    <script src="product-details.js"></script>
+  </body>
+</html>
+
