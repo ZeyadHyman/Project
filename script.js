@@ -1,11 +1,5 @@
-// JavaScript file for TechStore website
-// This file makes the website interactive
+// javascript file
 
-// ============================================
-// PRODUCT DATA
-// ============================================
-// Here we store all our products in an array
-// Each product is an object with properties like name, price, image, etc.
 const products = [
   {
     id: 1,
@@ -145,385 +139,195 @@ const products = [
   },
 ];
 
-// ============================================
-// SHOPPING CART
-// ============================================
-// This array stores all items in the shopping cart
 let cart = [];
 
-// This object contains all the functions for managing the cart
 const cartManager = {
-  // Function to add a product to the cart
   addItem: function (product) {
-    try {
-      // First check if the product is valid
-      if (!product || !product.id) {
-        throw new Error("Invalid product data");
+    let found = false;
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === product.id) {
+        cart[i].quantity = cart[i].quantity + 1;
+        found = true;
+        break;
       }
-
-      // Check if this product is already in the cart
-      const existingItem = cart.find((item) => item.id === product.id);
-
-      // If it's already in cart, increase quantity by 1
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        // If it's not in cart, add it as a new item
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          quantity: 1,
-        });
-      }
-
-      // Update the cart display and show a message
-      this.updateCartDisplay();
-      this.showNotification("Added to cart!");
-      // Save cart so it doesn't disappear when you refresh
-      saveCartToStorage();
-    } catch (error) {
-      // If something goes wrong, show an error message
-      console.error("Error adding item to cart:", error.message);
-      alert("Error: " + error.message);
     }
+    if (!found) {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+      });
+    }
+    this.updateCartDisplay();
+    alert("Added to cart!");
   },
 
-  // Function to remove an item from the cart
   removeItem: function (productId) {
-    try {
-      // Remove the item from cart by filtering it out
-      cart = cart.filter((item) => item.id !== productId);
-      this.updateCartDisplay();
-      // Save the updated cart
-      saveCartToStorage();
-    } catch (error) {
-      console.error("Error removing item:", error.message);
+    let newCart = [];
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id !== productId) {
+        newCart.push(cart[i]);
+      }
     }
+    cart = newCart;
+    this.updateCartDisplay();
   },
 
-  // Function to calculate the total price of all items in cart
   calculateTotal: function () {
-    // Go through each item, multiply price by quantity, and add them all up
-    return cart.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      total = total + cart[i].price * cart[i].quantity;
+    }
+    return total;
   },
 
-  // Function to update what the user sees in the cart
   updateCartDisplay: function () {
-    // Get the HTML elements we need to update
     const cartCount = document.getElementById("cart-count");
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
 
-    // Update the number shown on the cart icon
     if (cartCount) {
       cartCount.textContent = cart.length;
     }
 
-    // Update the list of items in the cart modal
     if (cartItems) {
       if (cart.length === 0) {
-        // If cart is empty, show a message
         cartItems.innerHTML = "<p>Your cart is empty.</p>";
       } else {
-        // If cart has items, show each item with a remove button
-        cartItems.innerHTML = cart
-          .map(
-            (item) => `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                             <div class="cart-item-name">${item.name}</div>
-                             <div class="cart-item-price">$${item.price.toFixed(
-                               2
-                             )} x ${item.quantity}</div>
-                        </div>
-                        <button class="remove-item-btn" onclick="cartManager.removeItem(${
-                          item.id
-                        })">Remove</button>
-                    </div>
-                `
-          )
-          .join("");
+        let cartHTML = "";
+        for (let i = 0; i < cart.length; i++) {
+          let item = cart[i];
+          cartHTML += "<div class='cart-item'>";
+          cartHTML += "<div>" + item.name + "</div>";
+          cartHTML +=
+            "<div>$" + item.price.toFixed(2) + " x " + item.quantity + "</div>";
+          cartHTML +=
+            "<button onclick='cartManager.removeItem(" +
+            item.id +
+            ")'>Remove</button>";
+          cartHTML += "</div>";
+        }
+        cartItems.innerHTML = cartHTML;
       }
     }
 
-    // Update the total price
     if (cartTotal) {
       cartTotal.textContent = this.calculateTotal().toFixed(2);
     }
   },
-
-  // Function to show a temporary message when something happens
-  showNotification: function (message) {
-    // Create a new div element for the notification
-    const notification = document.createElement("div");
-    // Style the notification and add it to the page
-    notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #27ae60;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            z-index: 3000;
-            animation: slideIn 0.3s ease;
-        `;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    // Remove the notification after 3 seconds
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
-  },
 };
 
-// ============================================
-// FORM VALIDATION
-// ============================================
-// This function checks if the form is filled out correctly
-function validateForm() {
-  // Get the input fields from the form
-  const nameInput = document.getElementById("name");
-  const emailInput = document.getElementById("email");
-  const messageInput = document.getElementById("message");
-
-  let isValid = true; // Start by assuming the form is valid
-
-  // Clear any old error messages
-  document.querySelectorAll(".error-message").forEach((error) => {
-    error.textContent = "";
-  });
-
-  // Check if name is filled in
-  const name = nameInput.value.trim();
-  if (name === "") {
-    showError("name-error", "Please enter your name");
-    isValid = false;
-  } else if (name.length < 2) {
-    showError("name-error", "Name should be at least 2 characters");
-    isValid = false;
-  }
-
-  // Check if email is filled in and has correct format
-  const email = emailInput.value.trim();
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // This pattern checks for valid email format
-  if (email === "") {
-    showError("email-error", "Please enter your email");
-    isValid = false;
-  } else if (!email.match(emailPattern)) {
-    showError("email-error", "Email format looks wrong");
-    isValid = false;
-  }
-
-  // Check if message is filled in
-  const message = messageInput.value.trim();
-  if (message === "") {
-    showError("message-error", "Please write a message");
-    isValid = false;
-  } else if (message.length < 10) {
-    showError(
-      "message-error",
-      "Message needs to be longer (at least 10 characters)"
-    );
-    isValid = false;
-  }
-
-  return isValid; // Return true if everything is valid, false if not
-}
-
-// Helper function to display error messages
-function showError(errorId, message) {
-  const errorElement = document.getElementById(errorId);
-  if (errorElement) {
-    errorElement.textContent = message;
-  }
-}
-
-// This function runs when the form is submitted
-function handleFormSubmit(event) {
-  event.preventDefault(); // Stop the form from submitting normally
-
-  try {
-    // First validate the form
-    if (validateForm()) {
-      // If form is valid, get the data
-      const formData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value,
-      };
-
-      // Show success message
-      const successMessage = document.getElementById("form-success");
-      successMessage.textContent =
-        "Thanks! We got your message and will get back to you soon.";
-      successMessage.style.display = "block";
-
-      // Clear the form
-      document.getElementById("contact-form").reset();
-
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        successMessage.style.display = "none";
-      }, 5000);
-    }
-  } catch (error) {
-    // If something goes wrong, show an error
-    console.error("Form submission error:", error);
-    alert("Oops, something went wrong. Can you try again?");
-  }
-}
-
-// ============================================
-// DISPLAY PRODUCTS
-// ============================================
-// This function shows all products on the page
 function displayProducts() {
-  // Get the container where products will be displayed
   const productsGrid = document.getElementById("products-grid");
+  if (!productsGrid) return;
 
-  // If the container doesn't exist, stop here
-  if (!productsGrid) {
-    console.error("Products grid element not found");
-    return;
-  }
-
-  // Clear any existing content
   productsGrid.innerHTML = "";
 
-  // Loop through each product and create a card for it
-  products.forEach((product) => {
-    // Create a new div element for the product card
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
     const productCard = document.createElement("div");
     productCard.className = "product-card";
 
-    // Create the HTML for this product card
-    productCard.innerHTML = `
-             <img src="${product.image}" alt="${
-      product.name
-    }" class="product-image" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-             <div class="product-name">${product.name}</div>
-             <div class="product-price">$${product.price.toFixed(2)}</div>
-             <a href="product-details.html?id=${
-               product.id
-             }" class="view-details-btn-link">
-               <button class="view-details-btn">
-                 View Details
-               </button>
-             </a>
-             <button class="add-to-cart-btn" onclick="event.stopPropagation(); cartManager.addItem(${JSON.stringify(
-               product
-             ).replace(/"/g, "&quot;")})">
-                 Add to Cart
-             </button>
-         `;
+    let productHTML = "<img src='" + product.image + "' class='product-image'>";
+    productHTML += "<div class='product-name'>" + product.name + "</div>";
+    productHTML +=
+      "<div class='product-price'>$" + product.price.toFixed(2) + "</div>";
+    productHTML += "<a href='product-details.html?id=" + product.id + "'>";
+    productHTML += "<button class='view-details-btn'>View Details</button>";
+    productHTML += "</a>";
+    productHTML +=
+      "<button onclick='addProductToCart(" + i + ")'>Add to Cart</button>";
 
-    // Add the card to the page
+    productCard.innerHTML = productHTML;
     productsGrid.appendChild(productCard);
-  });
+  }
 }
 
-// ============================================
-// CART MODAL (POPUP WINDOW)
-// ============================================
-// Function to open the cart popup
+function addProductToCart(productIndex) {
+  if (productIndex >= 0 && productIndex < products.length) {
+    cartManager.addItem(products[productIndex]);
+  }
+}
+
 function openCartModal() {
   const modal = document.getElementById("cart-modal");
   if (modal) {
-    modal.style.display = "block"; // Show the modal
-    cartManager.updateCartDisplay(); // Update what's shown in the cart
+    modal.style.display = "block";
+    cartManager.updateCartDisplay();
   }
 }
 
-// Function to close the cart popup
 function closeCartModal() {
   const modal = document.getElementById("cart-modal");
   if (modal) {
-    modal.style.display = "none"; // Hide the modal
+    modal.style.display = "none";
   }
 }
 
-// ============================================
-// SMOOTH SCROLLING
-// ============================================
-// This function makes the page scroll smoothly to a section
-function smoothScroll(targetId) {
-  const targetElement = document.querySelector(targetId);
-  if (targetElement) {
-    targetElement.scrollIntoView({
-      behavior: "smooth", // Smooth scrolling instead of jumping
-      block: "start",
-    });
+function validateForm() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  if (name === "") {
+    alert("Please enter your name");
+    return false;
+  }
+  if (email === "") {
+    alert("Please enter your email");
+    return false;
+  }
+  if (message === "") {
+    alert("Please write a message");
+    return false;
+  }
+  return true;
+}
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+  if (validateForm()) {
+    alert("Thank you! Your message has been sent.");
+    document.getElementById("contact-form").reset();
   }
 }
 
-// ============================================
-// SETUP WHEN PAGE LOADS
-// ============================================
-// Wait for the page to finish loading before running our code
+function scrollToProducts() {
+  const productsSection = document.getElementById("products");
+  if (productsSection) {
+    productsSection.scrollIntoView();
+  }
+}
+
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView();
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Show all products on the page
   displayProducts();
 
-  // Cart icon click event
   const cartIcon = document.getElementById("cart-icon");
   if (cartIcon) {
-    cartIcon.addEventListener("click", openCartModal);
+    cartIcon.onclick = openCartModal;
   }
 
-  // Close modal events
   const closeModal = document.getElementById("close-modal");
   if (closeModal) {
-    closeModal.addEventListener("click", closeCartModal);
+    closeModal.onclick = closeCartModal;
   }
 
-  // Close modal when clicking outside
-  const modal = document.getElementById("cart-modal");
-  if (modal) {
-    window.addEventListener("click", function (event) {
-      if (event.target === modal) {
-        closeCartModal();
-      }
-    });
-  }
-
-  // Form submission event
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
-    contactForm.addEventListener("submit", handleFormSubmit);
+    contactForm.onsubmit = handleFormSubmit;
   }
 
-  // Shop now button
-  const shopNowBtn = document.getElementById("shop-now-btn");
-  if (shopNowBtn) {
-    shopNowBtn.addEventListener("click", function () {
-      smoothScroll("#products");
-    });
-  }
-
-  // Navigation link clicks
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href");
-      smoothScroll(targetId);
-
-      // Update active link
-      document
-        .querySelectorAll(".nav-link")
-        .forEach((l) => l.classList.remove("active"));
-      this.classList.add("active");
-    });
-  });
-
-  // Checkout button
   const checkoutBtn = document.getElementById("checkout-btn");
   if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", function () {
+    checkoutBtn.onclick = function () {
       if (cart.length === 0) {
         alert("Your cart is empty!");
       } else {
@@ -533,71 +337,10 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         cart = [];
         cartManager.updateCartDisplay();
-        saveCartToStorage();
         closeCartModal();
       }
-    });
+    };
   }
 
-  // Initialize cart display
   cartManager.updateCartDisplay();
-
-  // Load cart from localStorage
-  loadCartFromStorage();
 });
-
-// ============================================
-// SAVE AND LOAD CART
-// ============================================
-// Save the cart to browser storage so it doesn't disappear when you refresh
-function saveCartToStorage() {
-  try {
-    localStorage.setItem("techStoreCart", JSON.stringify(cart));
-  } catch (error) {
-    console.error("Error saving cart to storage:", error);
-  }
-}
-
-// Load the cart from browser storage when the page loads
-function loadCartFromStorage() {
-  try {
-    const savedCart = localStorage.getItem("techStoreCart");
-    if (savedCart) {
-      cart = JSON.parse(savedCart);
-      cartManager.updateCartDisplay();
-    }
-  } catch (error) {
-    console.error("Error loading cart from storage:", error);
-  }
-}
-
-// ============================================
-// JAVASCRIPT DATA TYPES DEMONSTRATION
-// ============================================
-// This section demonstrates various JavaScript data types:
-
-// Number data type
-const totalProducts = products.length; // Number: 8
-
-// String data type
-const storeName = "TechStore"; // String
-
-// Boolean data type
-const isStoreOpen = true; // Boolean
-
-// Array data type (already shown with products and cart)
-
-// Object data type (already shown with product objects and cartManager)
-
-// Undefined and Null
-let undefinedVariable; // undefined
-let nullVariable = null; // null
-
-// ============================================
-// BUILT-IN FUNCTIONS USED IN THIS PROJECT
-// ============================================
-// 1. Array methods: forEach(), map(), filter(), reduce(), find()
-// 2. String methods: trim(), match(), toFixed()
-// 3. DOM methods: getElementById(), querySelector(), addEventListener()
-// 4. Timing functions: setTimeout()
-// 5. JSON methods: JSON.stringify()

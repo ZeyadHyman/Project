@@ -1,58 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TechStore - E-Trade Platform</title>
-    <!-- Link to our CSS file that styles everything -->
+    <title>Tech-Tok Store</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Top navigation bar -->
-    <header id="main-header" class="header">
+    <div class="header">
       <div class="container">
-        <h1 class="logo">TechStore</h1>
-        <!-- Navigation menu -->
-        <nav class="nav-menu">
-          <ul class="nav-list">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#products" class="nav-link">Products</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
-        </nav>
-        <!-- Shopping cart icon with item count -->
+        <h1 class="logo">Tech-Tok Store</h1>
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link" onclick="scrollToSection('home')">Home</a></li>
+          <li><a href="#products" class="nav-link" onclick="scrollToSection('products')">Products</a></li>
+          <li><a href="#about" class="nav-link" onclick="scrollToSection('about')">About</a></li>
+          <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
+        </ul>
         <div class="cart-icon" id="cart-icon">
-          <span>Cart</span>
-          <span class="cart-count" id="cart-count">0</span>
+          Cart (<span id="cart-count">0</span>)
         </div>
       </div>
-    </header>
+    </div>
 
-    <!-- Main page content -->
-    <main id="main-content">
-      <!-- Welcome section at the top -->
-      <section id="home" class="hero-section">
-        <div class="container">
-          <h2 class="hero-title">Welcome to TechStore</h2>
-          <p class="hero-subtitle">
-            Find great deals on electronics, gadgets, and tech stuff
-          </p>
-          <button class="btn-primary" id="shop-now-btn">Shop Now</button>
-        </div>
-      </section>
+    <div id="home" class="hero-section">
+      <div class="container">
+        <h2 class="hero-title">Welcome to Tech-Tok Store</h2>
+        <p>Find great deals on electronics, gadgets, and tech stuff</p>
+        <button class="btn-primary" onclick="scrollToProducts()">Shop Now</button>
+      </div>
+    </div>
 
-      <!-- Products section - JavaScript will add products here -->
-      <section id="products" class="products-section">
-        <div class="container">
-          <h2 class="section-title">Our Products</h2>
-          <div class="products-grid" id="products-grid">
-            <!-- Products will be loaded here by JavaScript -->
-          </div>
-        </div>
-      </section>
+    <div id="products" class="products-section">
+      <div class="container">
+        <h2 class="section-title">Our Products</h2>
+        <div class="products-grid" id="products-grid"></div>
+      </div>
+    </div>
 
-      <!-- Shopping cart popup window -->
       <div class="modal" id="cart-modal">
         <div class="modal-content">
           <span class="close" id="close-modal">&times;</span>
@@ -65,73 +47,45 @@
         </div>
       </div>
 
-      <!-- About us section -->
-      <section id="about" class="about-section">
-        <div class="container">
-          <h2 class="section-title">About TechStore</h2>
-          <p class="about-text">
-            We started TechStore because we love technology and wanted to make
-            it easier for people to find good deals on electronics. Whether you
-            need a new laptop for work, headphones for music, or just browsing
-            for cool gadgets, we've got you covered. Our team picks products
-            we'd actually use ourselves, so you know they're quality items.
-          </p>
-        </div>
-      </section>
-
-      <!-- Contact form section -->
-      <section id="contact" class="contact-section">
-        <div class="container">
-          <h2 class="section-title">Contact Us</h2>
-          <form id="contact-form" class="contact-form">
-            <div class="form-group">
-              <label for="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="form-input"
-                required
-              />
-              <span class="error-message" id="name-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="form-input"
-                required
-              />
-              <span class="error-message" id="email-error"></span>
-            </div>
-            <div class="form-group">
-              <label for="message">Message:</label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                rows="5"
-                required
-              ></textarea>
-              <span class="error-message" id="message-error"></span>
-            </div>
-            <button type="submit" class="btn-primary">Send Message</button>
-            <div id="form-success" class="success-message"></div>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer at the bottom -->
-    <footer id="main-footer" class="footer">
+    <div id="about" class="about-section">
       <div class="container">
-        <p>&copy; 2025 TechStore. All rights reserved.</p>
+        <h2 class="section-title">About Tech-Tok Store</h2>
+        <p>
+          We started Tech-Tok Store because we love technology and wanted to
+          make it easier for people to find good deals on electronics. Whether
+          you need a new laptop for work, headphones for music, or just
+          browsing for cool gadgets, we've got you covered.
+        </p>
       </div>
-    </footer>
+    </div>
 
-    <!-- Link to our JavaScript file that makes everything work -->
+    <div id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <form id="contact-form">
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" id="name" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" id="email" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>Message:</label>
+            <textarea id="message" class="form-input" rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p>&copy; 2025 Tech-Tok Store. All rights reserved.</p>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

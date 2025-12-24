@@ -1,4 +1,5 @@
-# TechStore - E-Trade Website
+# Tech-Tok Store - E-Trade Website
+
 ## Web Programming I - Assignment 2
 
 A simple and clean e-trade website demonstrating HTML, CSS, and JavaScript integration.
@@ -36,12 +37,14 @@ Project/
 ## 📋 Features
 
 ### ✅ HTML Requirements (P7)
+
 - ✅ Semantic HTML5 tags (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`)
 - ✅ Proper use of **classes** and **IDs**
 - ✅ **External CSS file** (`styles.css`)
 - ✅ Well-organized structure
 
 ### ✅ JavaScript Requirements (P8, P9, P10, M3)
+
 - ✅ **P8**: Documentation showing similarities and differences between HTML and JavaScript
 - ✅ **P9**: JavaScript as scripting language with features explained
 - ✅ **P10**: JavaScript code applied to enhance the project
@@ -71,7 +74,7 @@ Project/
    - Checkout button
 
 4. **About Section**
-   - Information about TechStore
+   - Information about Tech-Tok Store
 
 5. **Contact Section**
    - Contact form with validation
@@ -82,17 +85,20 @@ Project/
 ## 💻 Code Highlights
 
 ### HTML Structure
+
 - Uses semantic tags for better structure
 - Proper class and ID naming
 - External CSS and JavaScript files linked
 
 ### CSS Styling
+
 - Modern, clean design
 - Responsive layout
 - Hover effects and transitions
 - Modal styling for cart
 
 ### JavaScript Functionality
+
 - **Shopping Cart System**: Add/remove items, calculate totals
 - **Form Validation**: Real-time validation with error messages
 - **Dynamic Content**: Products loaded from JavaScript array
@@ -104,17 +110,20 @@ Project/
 ## 📚 Key JavaScript Concepts Demonstrated
 
 1. **Variables and Data Types**
+
    ```javascript
    let cart = [];  // Array
    const product = { name: "Laptop", price: 999.99 };  // Object
    ```
 
 2. **Functions**
+
    ```javascript
    function validateForm() { ... }
    ```
 
 3. **Objects and Methods**
+
    ```javascript
    const cartManager = {
        addItem: function(product) { ... }
@@ -122,11 +131,13 @@ Project/
    ```
 
 4. **Conditional Statements**
+
    ```javascript
    if (cart.length > 0) { ... } else { ... }
    ```
 
 5. **Array Methods**
+
    ```javascript
    products.forEach(...)
    cart.filter(...)
@@ -134,6 +145,7 @@ Project/
    ```
 
 6. **Error Handling**
+
    ```javascript
    try {
        // Code that might fail
@@ -157,9 +169,11 @@ Project/
 ## 📖 Documentation
 
 For detailed information about JavaScript and its differences from HTML, see:
+
 - **JAVASCRIPT_DOCUMENTATION.md**
 
 This document covers:
+
 - What JavaScript is
 - Why we use JavaScript
 - Similarities and differences between HTML and JavaScript
@@ -205,6 +219,7 @@ This document covers:
 ## 🎓 Learning Points
 
 This project demonstrates:
+
 - Separation of concerns (HTML, CSS, JavaScript in separate files)
 - Modern web development practices
 - Interactive web applications
@@ -226,6 +241,7 @@ This project demonstrates:
 ## 🤝 Team Collaboration
 
 All team members can:
+
 - Open and view the website
 - Read the code with comments
 - Understand the structure easily
@@ -234,4 +250,3 @@ All team members can:
 ---
 
 **Good luck with your assignment! 🚀**
-
